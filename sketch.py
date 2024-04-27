@@ -2,10 +2,15 @@ from p5 import *
 
 
 def setup():
-  global colors,pianokey
+  global colors,pianokey,state, colors2
   createCanvas(500,500)
-  colors=["#f76565", "#f5985b", "#e8f255", "#69f56c", "#62caf0", "#549af0", "#d7a4f5", "#f797d2"]
-
+  colors=["#f76565", "#f5985b", "#e8f255", "#69f56c", "#62caf0", "#549af0", "#cb7afa", "#f797d2"]
+  colors2=["#f78b8b", "#f5b184", "#f2fa89", "#96f298", "#98dcf5", "#8cbbf5", "#e5c6f7", "#f7bee1"]
+  pianokey  = {
+    "x": 150, "y": 350, "w":25, "h":100, "r":10, "c":"#f76565"
+  }
+  loadFont ("frredoka.ttf", "font")
+  state = "begin"
 def draw():
   
   background(0, 0, 0)
@@ -13,6 +18,48 @@ def draw():
   layout ()
   
   drawTickAxes()
+  fill (158, 151, 240)
+  strokeWeight (2)
+  rect (150, 100, 200, 150, 5)
+  
+  if state=="begin":
+     clickingtostart ()
+
+  
+def layout ():
+  global colors,pianokey
+  noStroke ()
+  #strokeWeight (0.5)
+  for i in range(8):
+    fill (colors[i])
+    rect (pianokey["x"]+i*25, pianokey["y"], pianokey["w"], pianokey["h"], pianokey["r"])
+
+def clickingtostart ():
+  noStroke ()
+  textAlign (CENTER)
+  fill (0)
+  textFont (assets["font"])
+  textSize (25)
+  text ("Click to start", 250, 165)
+  
+  
+  
+def mousePressed():
+  global state
+  state = "clicked"
+  
+def keyPressed ():
+  global colors2, colors
+  if keyCode == 51:
+    colors[0]=colors2[0]
+ 
+
+def keyReleased ():
+  global colors2, colors
+  if keyCode == 51:
+    colors[0]="#f76565"
+
+    
 
 
 
@@ -35,30 +82,3 @@ one for all key prop
 second for the keyboard prop
 
 '''
-def layout ():
-  noStroke ()
-  #strokeWeight (0.5)
-
-  
-  
-  global red, orange, yellow, green, blue, indigo, violet, pink
-  fill ("#f76565") 
-  red = rect (150, 350, 25, 100, 10)
-  fill ("#f5985b")  
-  orange = rect (175, 350, 25, 100, 10)
-  fill ("#e8f255")
-  yellow = rect (200, 350, 25, 100, 10)
-  fill ("#69f56c")
-  green = rect (225, 350, 25, 100, 10)
-  fill ("#62caf0")
-  blue = rect (250, 350, 25, 100, 10)
-  fill ("#549af0")
-  indigo = rect (275, 350, 25, 100, 10)
-  fill ("#d7a4f5")
-  violet = rect (300, 350, 25, 100, 10)
-  fill ("#f797d2")
-  pink = rect (325, 350, 25, 100, 10)
-  
-  
-  
-  
